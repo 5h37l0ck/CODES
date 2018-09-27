@@ -1,0 +1,101 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+
+int main() {
+    
+    
+    int cases, lines;
+    //Estas sao as variaveis que controlam os loops(mais conhecidas como geracoes de processadores da intel.)
+    int i1, i2, i3, i4, i5, i6, i7, i8;
+    int lenDif, len, lenReplacer, lenReplaced, found, diference, diferencei3;
+    char replaced[200][200], replacer[200][200], text[200][300], aux[500], aux2[500];
+	
+	
+	
+	while(scanf("%d %d",&cases,&lines), cases!=0 && lines!=0){
+	    
+	    for(i1=0; i1<cases; i1++){
+	        scanf("%s -> %s", replaced[i1], replacer[i1]);
+	    }
+	    
+	    for(i1=0; i1<lines; i1++){
+	        scanf(" %[^\n]s", text[i1]);
+	    }
+	    
+	    for(i1=0; i1<cases; i1++){
+	        lenDif=strlen(replacer[i1])-strlen(replaced[i1]);
+	        lenReplaced= strlen(replaced[i1]);
+	        
+	        for(i2=0; i2<lines; i2++){
+	            
+	            diference=0;
+	            diferencei3=0;
+	            
+	            for(i3=0; text[i2][i3+lenReplaced-1]!='\0';i3++){
+	                
+	                found=0;
+	                i5=0;
+	                i4=i3;
+	                
+	                while(replaced[i1][i5]!='\0'&&text[i2][i4]==replaced[i1][i5]){
+	                    
+	                 ++i5;
+	                 ++i4;
+	                    
+	                }
+	                
+	                if(replaced[i1][i5]=='\0'){
+	                    found=1;
+	                }
+	                
+	                if(found==1){
+	                    if(lenDif==0){
+	                        for(i6=0; replacer[i1][i6]!='\0'; i6++){
+	                            text[i2][i3+i6]=replacer[i1][i6];
+	                        }
+	                    }
+	                    
+	                    else if(lenDif>0||lenDif<0){
+	                        
+	                        strcpy(aux, text[i2]+(i3+strlen(replaced[i1])));
+	                        for(i6=0; replacer[i1][i6]!='\0' ; i6++){
+	                            
+	                            text[i2][i3+i6]=replacer[i1][i6];
+	                            
+	                        }
+	                        
+	                        for(i6=0; i6<i3+strlen(replacer[i1]) ; i6++){
+	                            
+	                            aux2[i6]=text[i2][i6];
+	                        }
+	                        
+	                        strcat(aux2,aux);
+	                        strcpy(text[i2], aux2);
+	                        memset(aux, '\0', 500);
+	                        memset(aux2, '\0', 500);
+	                        
+	                    }
+	                    
+	                }
+	                
+	            }
+	            
+	            
+	        }
+	        
+	        
+	    }
+	    for(i1=0; i1<lines; i1++){
+          printf("\n%s",text[i1]);
+        }
+	    
+	    
+	     
+	    
+	}
+	
+	
+	return 0;
+}
